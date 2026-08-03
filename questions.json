@@ -1,47 +1,100 @@
 [
   {
-    "question": "Which project management triangle constraint is usually adjusted when scope increases but schedule stays fixed?",
+    "question": "What sector do you currently work in?",
     "options": [
-      "Cost/resources",
-      "Quality/safety",
-      "Stakeholder map",
-      "Meeting cadence"
+      "City/County Government",
+      "Consultant/Engineering Firm",
+      "Contractor/Construction",
+      "Student",
+      "Other"
     ]
   },
   {
-    "question": "What is the best first step when a team discovers a recurring process bottleneck?",
+    "question": "How many years have you worked in public works?",
     "options": [
-      "Map the current workflow",
-      "Add more meetings",
-      "Skip documentation",
-      "Wait for the next cycle"
+      "Less than 1 year",
+      "1-3 years",
+      "4-7 years",
+      "8+ years"
     ]
   },
   {
-    "question": "Which metric is most directly related to the speed of completing work items?",
+    "question": "Which public works discipline best matches your role?",
     "options": [
-      "Cycle time",
-      "Brand awareness",
-      "Office occupancy",
-      "Email length"
+      "Transportation/Streets",
+      "Water, Wastewater, or Stormwater",
+      "Construction/Capital Projects",
+      "Administration, Planning, or Other",
+      "Other"
     ]
   },
   {
-    "question": "In a poll-style game, what helps keep players engaged between questions?",
+    "question": "What was your path into public works?",
     "options": [
-      "Fast feedback and visible results",
-      "Long silent pauses",
-      "Hidden scores only",
-      "Manual paper collection"
+      "Civil Engineering Degree",
+      "Public Administration/Planning",
+      "Trade or Technical Background",
+      "Other Career Path"
     ]
   },
   {
-    "question": "What should a good CSV export include for quiz results?",
+    "question": "Which APWA benefit do you use the most?",
     "options": [
-      "Participant, email, question, answer, timestamp",
-      "Only first names",
-      "Only final totals",
-      "No timestamps"
+      "Conferences and Events",
+      "Training and Certifications",
+      "Networking",
+      "APWA Resources/Publications",
+      "Other"
+    ]
+  },
+  {
+    "question": "If your department suddenly received $10 million, what would you spend it on first?",
+    "options": [
+      "Road Rehabilitation",
+      "Utility Infrastructure Upgrades",
+      "Fleet and Equipment Replacement",
+      "Technology and Asset Management",
+      "Other"
+    ]
+  },
+  {
+    "question": "Which public works emergency would you rather manage?",
+    "options": [
+      "Snowstorm",
+      "Major Water Main Break",
+      "Flooding Event",
+      "Traffic Signal Failure During Rush Hour",
+      "Other"
+    ]
+  },
+  {
+    "question": "What is your favorite field visit?",
+    "options": [
+      "Roadway Construction Site",
+      "Water/Wastewater Facility",
+      "Bridge or Structural Project",
+      "Maintenance Yard/Operations Facility",
+      "Other"
+    ]
+  },
+  {
+    "question": "Which technology do you think will have the biggest impact on public works in the next 10 years?",
+    "options": [
+      "Artificial Intelligence",
+      "Drones and Remote Sensing",
+      "Smart Infrastructure/IoT",
+      "Automated and Connected Vehicles",
+      "Other"
+    ]
+  },
+  {
+    "question": "What is your primary reason for attending this conference?",
+    "options": [
+      "Learn New Technical Skills",
+      "Build My Professional Network",
+      "Learn About New Products/Services",
+      "Earn Professional Development Hours",
+      "Other"
     ]
   }
 ]
