@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Poll Game Player</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="container narrow">
+    <section class="card">
+      <p class="eyebrow">Player</p>
+      <h1>Hi, {{ player.name }}</h1>
+      <div id="statusText" class="status">Waiting for the host to start...</div>
+      <div id="timerWrap" class="timer hidden"><span id="timer">0</span>s</div>
+    </section>
+    <section class="card question-card">
+      <div id="questionMeta" class="eyebrow"></div>
+      <h2 id="questionText">Waiting for question</h2>
+      <div id="options" class="options"></div>
+      <p id="answered" class="success hidden">Answer submitted. Waiting for results...</p>
+    </section>
+    <section id="resultsCard" class="card hidden">
+      <h2>Results</h2>
+      <div id="bars" class="bars"></div>
+    </section>
+  </main>
+<script>
+const playerId = "{{ player_id }}";
+let lastQuestionIndex = null;
+
+async function submitAnswer(answer) {
+  try {
+    const res = await fetch('/api/answer', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({player_id: playerId, answer})
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Could not submit answer.');
+    renderState(data.state);
+  } catch (err) {
+    alert(err.message);
+  }
+}
+
+function renderBars(results) {
+  const bars = document.getElementById('bars');
+  bars.innerHTML = '';
+  const max = Math.max(1, ...results.map(r => r.count));
+  results.forEach(r => {
+    const row = document.createElement('div');
+    row.className = 'bar-row';
+    row.innerHTML = `
+      <div class="bar-label">${r.option}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${(r.count / max) * 100}%"></div></div>
+      <div class="bar-count">${r.count}</div>`;
+    bars.appendChild(row);
+  });
+}
+
+function renderState(state) {
+  const labels = {
+    lobby: 'Waiting for the host to start...',
+    question: 'Choose your answer.',
+    results: 'Results are in. Wait for the next question.',
+    finished: 'Game finished. Thanks for playing!'
+  };
+  document.getElementById('statusText').textContent = labels[state.status] || state.status;
+  document.getElementById('timer').textContent = state.seconds_left;
+  document.getElementById('timerWrap').classList.toggle('hidden', state.status !== 'question');
+  document.getElementById('resultsCard').classList.toggle('hidden', !(state.status === 'results' || state.status === 'finished'));
+
+  if (state.current_question) {
+    if (lastQuestionIndex !== state.current_question.index) lastQuestionIndex = state.current_question.index;
+    document.getElementById('questionMeta').textContent = `Question ${state.current_question.number} of ${state.current_question.total}`;
+    document.getElementById('questionText').textContent = state.current_question.question;
+    const options = document.getElementById('options');
+    options.innerHTML = '';
+    const alreadyAnswered = !!state.player_answer || state.status !== 'question';
+    state.current_question.options.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.className = 'answer-btn';
+      if (state.player_answer === opt) btn.classList.add('selected');
+      btn.textContent = opt;
+      btn.disabled = alreadyAnswered;
+      btn.addEventListener('click', () => submitAnswer(opt));
+      options.appendChild(btn);
+    });
+    document.getElementById('answered').classList.toggle('hidden', !state.player_answer || state.status !== 'question');
+  } else {
+    document.getElementById('questionMeta').textContent = '';
+    document.getElementById('questionText').textContent = 'Waiting for question';
+    document.getElementById('options').innerHTML = '';
+    document.getElementById('answered').classList.add('hidden');
+  }
+  if (state.status === 'results' || state.status === 'finished') renderBars(state.results);
+}
+
+async function poll() {
+  try {
+    const res = await fetch(`/api/state?player_id=${playerId}`);
+    renderState(await res.json());
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+poll();
+setInterval(poll, 700);
+</script>
+</body>
+</html>

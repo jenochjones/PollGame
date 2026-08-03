@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Join Poll Game</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="container narrow">
+    <section class="card">
+      <p class="eyebrow">Join Game</p>
+      <h1>Enter your details</h1>
+      <form id="joinForm" class="form">
+        <label>Name<input id="name" name="name" autocomplete="name" required></label>
+        <label>Email<input id="email" name="email" type="email" autocomplete="email" required></label>
+        <button class="primary" type="submit">Join</button>
+      </form>
+      <p id="error" class="error"></p>
+    </section>
+  </main>
+<script>
+document.getElementById('joinForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const error = document.getElementById('error');
+  error.textContent = '';
+  try {
+    const res = await fetch('/api/join', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value
+      })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Could not join.');
+    window.location.href = data.redirect;
+  } catch (err) {
+    error.textContent = err.message;
+  }
+});
+</script>
+</body>
+</html>

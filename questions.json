@@ -1,0 +1,47 @@
+[
+  {
+    "question": "Which project management triangle constraint is usually adjusted when scope increases but schedule stays fixed?",
+    "options": [
+      "Cost/resources",
+      "Quality/safety",
+      "Stakeholder map",
+      "Meeting cadence"
+    ]
+  },
+  {
+    "question": "What is the best first step when a team discovers a recurring process bottleneck?",
+    "options": [
+      "Map the current workflow",
+      "Add more meetings",
+      "Skip documentation",
+      "Wait for the next cycle"
+    ]
+  },
+  {
+    "question": "Which metric is most directly related to the speed of completing work items?",
+    "options": [
+      "Cycle time",
+      "Brand awareness",
+      "Office occupancy",
+      "Email length"
+    ]
+  },
+  {
+    "question": "In a poll-style game, what helps keep players engaged between questions?",
+    "options": [
+      "Fast feedback and visible results",
+      "Long silent pauses",
+      "Hidden scores only",
+      "Manual paper collection"
+    ]
+  },
+  {
+    "question": "What should a good CSV export include for quiz results?",
+    "options": [
+      "Participant, email, question, answer, timestamp",
+      "Only first names",
+      "Only final totals",
+      "No timestamps"
+    ]
+  }
+]
